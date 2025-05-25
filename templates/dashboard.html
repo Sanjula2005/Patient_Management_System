@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head><title>Admin Dashboard</title>
+<link rel="stylesheet" href="{{ url_for('static',filename='style.css') }}"></head>
+<body>
+  <h1>Admin Dashboard</h1>
+
+  <form method="POST">
+    <input type="text" name="search" placeholder="Search keyword..." value="{{ search }}">
+
+    <select name="filter_doctor">
+      <option value="">--Filter by Doctor--</option>
+      {% for d in doctor_names %}
+        <option value="{{ d }}" {% if selected_doc == d %}selected{% endif %}>{{ d }}</option>
+      {% endfor %}
+    </select>
+
+    <select name="filter_patient">
+      <option value="">--Filter by Patient--</option>
+      {% for p in patient_names %}
+        <option value="{{ p }}" {% if selected_pat == p %}selected{% endif %}>{{ p }}</option>
+      {% endfor %}
+    </select>
+
+    <select name="filter_spec">
+      <option value="">--Filter by Specialization--</option>
+      {% for s in specializations %}
+        <option value="{{ s }}" {% if selected_spec == s %}selected{% endif %}>{{ s }}</option>
+      {% endfor %}
+    </select>
+
+    <select name="sort_by">
+      <option value="">--Sort by--</option>
+      <option value="name_asc" {% if sort_option == 'name_asc' %}selected{% endif %}>Patient Name (A-Z)</option>
+      <option value="name_desc" {% if sort_option == 'name_desc' %}selected{% endif %}>Patient Name (Z-A)</option>
+      <option value="age_asc" {% if sort_option == 'age_asc' %}selected{% endif %}>Age (Low-High)</option>
+      <option value="age_desc" {% if sort_option == 'age_desc' %}selected{% endif %}>Age (High-Low)</option>
+    </select>
+
+    <button type="submit">Search</button>
+  </form>
+
+  <h2>Patients</h2>
+  <table border="1">
+    <tr><th>ID</th><th>Name</th><th>Age</th><th>Gender</th><th>Contact</th><th>Address</th></tr>
+    {% for p in patients %}
+    <tr><td>{{p[0]}}</td><td>{{p[1]}}</td><td>{{p[2]}}</td><td>{{p[3]}}</td><td>{{p[4]}}</td><td>{{p[5]}}</td></tr>
+    {% endfor %}
+  </table>
+
+  <h2>Doctors</h2>
+  <table border="1">
+    <tr><th>ID</th><th>Name</th><th>Specialization</th><th>Contact</th></tr>
+    {% for d in doctors %}
+    <tr><td>{{d[0]}}</td><td>{{d[1]}}</td><td>{{d[2]}}</td><td>{{d[3]}}</td></tr>
+    {% endfor %}
+  </table>
+
+  <a href="{{ url_for('query') }}">Perform Queries</a> |
+  <a href="{{ url_for('add_doctor') }}">Add Doctor</a> |
+  <a href="{{ url_for('add_patient') }}">Add Patient</a> |
+  <a href="{{ url_for('logout') }}">Logout</a>
+</body>
+
+</html>

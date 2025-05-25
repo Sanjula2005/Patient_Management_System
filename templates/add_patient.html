@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head><title>Add Patient</title>
+<link rel="stylesheet" href="{{ url_for('static',filename='style.css') }}"></head>
+<body>
+  <h2>Add Patient</h2>
+  <form method="POST">
+    <input type="text"    name="name"     placeholder="Name" required>
+    <input type="number"  name="age"      placeholder="Age" required>
+    <select name="gender" required>
+      <option value="">Gender</option>
+      <option>Male</option><option>Female</option><option>Other</option>
+    </select>
+    <input type="text"    name="contact"  placeholder="Contact" required>
+    <input type="text"    name="address"  placeholder="Address" required>
+
+    {% if role == 'admin' %}
+  <select name="doctor_id" required>
+    <option value="">Select Doctor</option>
+    {% for doc in doctors %}
+      <option value="{{ doc[0] }}">{{ doc[1] }}</option>
+    {% endfor %}
+  </select>
+{% else %}
+  <input type="hidden" name="doctor_id" value="{{ doctors[0][0] }}">
+  <p><strong>Doctor:</strong> {{ doctors[0][1] }}</p>
+{% endif %}
+
+
+    <input type="text"    name="test_type" placeholder="Test Type" required>
+    <select name="diagnosis" required>
+      <option value="">Diagnosis</option>
+      <option>Benign</option><option>Malignant</option>
+    </select>
+
+    <input type="text"    name="username" placeholder="Login Username" required>
+    <input type="password"name="password" placeholder="Login Password" required>
+
+    <button type="submit">Add</button>
+  </form>
+  <a href="{{ url_for('dashboard') }}">Back</a>
+</body>
+</html>

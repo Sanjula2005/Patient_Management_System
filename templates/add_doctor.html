@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head><title>Add Doctor</title>
+<link rel="stylesheet" href="{{ url_for('static',filename='style.css') }}"></head>
+<body>
+  <h2>Add Doctor</h2>
+  <form method="POST">
+    <input type="text" name="name" placeholder="Name" required>
+    <input type="text" name="specialization" placeholder="Specialization" required>
+    <input type="text" name="contact" placeholder="Contact" required>
+    <input type="text" name="username" placeholder="Login Username" required>
+    <input type="password" name="password" placeholder="Login Password" required>
+    <button type="submit">Add</button>
+  </form>
+  <a href="{{ url_for('dashboard') }}">Back</a>
+</body>
+</html>
